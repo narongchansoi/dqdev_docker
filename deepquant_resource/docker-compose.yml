@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+
+    redis:
+        container_name: "dq_redis"
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile-redis
+        image: "deepquant/redis"
+        ports:
+            - "6379:6379"
+
+    influxdb:
+        container_name: "dq_influxdb"
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile-influxdb
+        image: "deepquant/influxdb"
+        volumes:
+            - ./influxdb:/var/lib/influxdb
+        ports:
+            - "8086:8086"
